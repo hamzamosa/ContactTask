@@ -1,0 +1,54 @@
+﻿@page "/ContactEdit"
+@page "/ContactEdi/{id}"
+@inject IJSRuntime jsRuntime;
+
+
+
+@if(!Saved)
+{
+    <section class="employee-edit">
+        <h1 class="page-title">Details for @Contact.firstName @Contact.lastNmae</h1>
+        <EditForm Model="@Contact" OnValidSubmit="@handleValidSubmit" OnInvalidSubmit="@handInleValidSubmit">
+          <DataAnnotationsValidator/>
+            <div class="form-group row">
+                <label for="firstName" class="col-sm-3"> first name:</label>
+                <InputText id="firstName" class="form-control col-sm-6" @bind-Value="@Contact.firstName" placeholder="enter first name"></InputText>
+
+            </div>
+            <ValidationMessage style="color:darkred" class="offset-sm-3 col-sm-8" For="@(()=>Contact.firstName)" />
+            <div class="form-group row">
+                <label for="lastNmae" class="col-sm-3"> last name:</label>
+                <InputText id="lastName" style="color:darkred" class="form-control col-sm-6" @bind-Value="@Contact.lastNmae" placeholder="enter last name" ></InputText>
+                <ValidationMessage style="color:darkred" class="offset-sm-3 col-sm-8" For="@(()=>Contact.lastNmae)" />
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-3"> email:</label>
+                <InputText id="email" class="form-control col-sm-6" @bind-Value="@Contact.email" placeholder="enter email"></InputText>
+                <ValidationMessage style="color:darkred" class="offset-sm-3 col-sm-8" For="@(()=>Contact.email)" />
+            </div>
+            <div class="form-group row">
+                <label for="phoneNumber" class="col-sm-3"> phone:</label>
+                <InputText id="phone" class="form-control col-sm-6" @bind-Value="@Contact.phoneNumber" placeholder="enter phone"></InputText>
+                <ValidationMessage style="color:darkred" class="offset-sm-3 col-sm-8" For="@(()=>Contact.phoneNumber)" />
+            </div>
+            <button type="submit" class="btn btn-primary edit-btn" style="margin-right:20px;margin-top:20px">Save Contact</button>
+            @if (Contact.id>0)
+            {
+
+                <a class="btn btn-primary edit-btn" style="margin-right:20px;margin-top:20px" @onclick="@DeleteContact">
+                    Delete
+                </a>
+            }
+            <a class="btn btn-primary edit-btn" style="margin-top:20px" @onclick="@NavigateToOverView">Back to over View</a>
+        </EditForm>
+    </section>
+
+
+
+}
+else
+{
+
+    <div class="alert @StatusClass">@Message</div>
+}
+

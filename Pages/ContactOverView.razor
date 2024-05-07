@@ -1,0 +1,75 @@
+﻿@page "/ContactOverView"
+@inject IJSRuntime js
+
+
+<h1 class="page-title">All Contacts</h1>
+<select @bind="slectedSort">
+    <option value="new">Newest first </option>
+    <option value="old">Oldest first</option>
+</select>
+
+@if(!Saved)
+{
+    @if (contacts == null)
+    {
+        <p><em>Loading ....</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contact in contacts)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@contact.id</td>
+                       <td>
+                            <a href="@($"ContactEdi/{contact.id}")">@contact.firstName</a>
+                       </td>
+                        <td><a href="@($"ContactEdi/{contact.id}")">@contact.lastNmae</a></td>
+                        <td>@contact.email</td>
+                        <td>@contact.phoneNumber</td>
+                        <td>
+                            <a href="@($"ContactDetails/{contact.id}")" class="btn btn-primary table-btn">
+                                <i class="fas fa-info-circle">show</i>
+                            </a>
+                            <a href="@($"ContactEdi/{contact.id}")" class="btn btn-primary table-btn">
+                                <i class="fas fa-edit">Edit</i>
+                            </a>
+
+                            <a @onclick="(e) => DeleteContact(contact.id)" class="btn btn-primary table-btn">
+                                <i class="fas fa-edit">Remove</i>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    }
+    
+}
+else
+{
+
+    <div class="alert @StatusClass">@Message</div>
+}
+
+
+
+
+
+
